@@ -12,6 +12,8 @@ export default function ChessBoard({ initialFen }) {
   const [engineReady, setEngineReady] = useState(false);
   const [timer, setTimer] = useState(0); // Timer in seconds
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [userMoveCount, setUserMoveCount] = useState(0);
+  const [movesHistory, setMovesHistory] = useState([]);
 
   // Function to update game status
   const updateGameStatus = () => {
@@ -47,6 +49,8 @@ export default function ChessBoard({ initialFen }) {
     setGameStatus("");
     updateGameStatus();
     setIsTimerRunning(true); // Start timer at the beginning of the game
+    setUserMoveCount(0);
+    setMovesHistory([{ player: 'Initial', move: 'Start', fen: initialFen }]);
   }, [initialFen]);
 
   // Timer effect
@@ -90,6 +94,7 @@ export default function ChessBoard({ initialFen }) {
         if (move) {
           setBoard(game.current.board());
           updateGameStatus();
+          setMovesHistory((prev) => [...prev, { player: 'Stockfish', move: move.san, fen: game.current.fen() }]);
           setIsTimerRunning(true); // Start timer for user's turn after Stockfish moves
         }
       } catch (error) {
@@ -125,6 +130,8 @@ export default function ChessBoard({ initialFen }) {
 
       setBoard(game.current.board());
       updateGameStatus();
+      setUserMoveCount((prev) => prev + 1);
+      setMovesHistory((prev) => [...prev, { player: 'User', move: move.san, fen: game.current.fen() }]);
 
       // Check if game is over
       if (game.current.isGameOver()) {
@@ -177,6 +184,17 @@ export default function ChessBoard({ initialFen }) {
           Total Time: {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
         </div>
       )}
+      <div style={{ marginTop: 20, fontSize: 16 }}>
+        <div style={{ fontWeight: 'bold' }}>Total User Moves: {userMoveCount}</div>
+        <div style={{ marginTop: 10, fontWeight: 'bold' }}>Moves History:</div>
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
+          {movesHistory.map((entry, index) => (
+            <li key={index} style={{ marginBottom: 5 }}>
+              {entry.player}: {entry.move} ({entry.fen})
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
