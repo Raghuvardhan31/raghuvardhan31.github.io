@@ -43,7 +43,7 @@ function Puzzles() {
           <p><b>Type:</b> {item.type}</p>
           <p><b>Difficulty:</b> {item.difficulty_level}</p>
           <p><b>Solution:</b> {item.solution_moves}</p>
-          <button onClick={() => navigate(`/game/${encodeURIComponent(item.fen)}`)}>Play</button>
+          <button onClick={() => navigate(`/game/${item.id}`)}>Play</button>
         </div>
       ))}
     </div>

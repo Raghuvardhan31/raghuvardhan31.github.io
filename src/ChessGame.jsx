@@ -1,17 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { supabase } from "./supabaseClient";
 import ChessBoard from "./ChessBoard";
 
 function ChessGame() {
-  const { fen: urlFen } = useParams();
+  const { id: urlId } = useParams();
   const [fen, setFen] = useState("start");
-  const navigate = useNavigate();  // ← Needed for Back button
+  const [currentPuzzle, setCurrentPuzzle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (urlFen) {
-      setFen(decodeURIComponent(urlFen));
+    if (urlId) {
+      fetchPuzzleById(urlId);
     }
-  }, [urlFen]);
+  }, [urlId]);
+
+  const fetchPuzzleById = async (id) => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("checkmate")
+      .select("*")
+      .eq("id", parseInt(id))
+      .single();
+
+    if (error) {
+      console.error("Error fetching puzzle:", error);
+      setLoading(false);
+      return;
+    }
+
+    setCurrentPuzzle(data);
+    setFen(data.fen);
+    setLoading(false);
+  };
+
+  const handleNext = () => {
+    if (currentPuzzle) {
+      const nextId = currentPuzzle.id + 1;
+      navigate(`/game/${nextId}`);
+    }
+  };
 
   const handleStartPuzzle = () => {
     const fenInput = prompt("Enter FEN:");

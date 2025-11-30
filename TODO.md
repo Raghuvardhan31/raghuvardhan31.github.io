@@ -1,7 +1,3 @@
-# TODO: Add Moves History Box Below Chess Board
-
-- [x] Modify src/ChessBoard.jsx to wrap moves history in a div with class "moves-box"
-- [x] Add a copy button at top right of the moves-box
-- [x] Implement copy functionality to copy entire moves history
-- [x] Update src/ChessBoard.css to style the moves-box with height 25% of board and same width
-- [x] Make moves list scrollable within the box
+- Update App.jsx to change route from /game/:fen to /game/:id ✓
+- Update Puzzles.jsx to navigate to /game/${item.id} instead of encoding FEN ✓
+- Update ChessGame.jsx to fetch puzzle by ID, set FEN from fetched data, and add Next button for next puzzle ✓
