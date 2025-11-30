@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
 
-function Puzzles() {
+function Puzzles({ onPlay }) {
   const [checkmates, setCheckmates] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +41,7 @@ function Puzzles() {
           <p><b>Type:</b> {item.type}</p>
           <p><b>Difficulty:</b> {item.difficulty_level}</p>
           <p><b>Solution:</b> {item.solution_moves}</p>
-          
+          <button onClick={() => onPlay(item.fen)}>Play</button>
         </div>
       ))}
     </div>

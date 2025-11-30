@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChessBoard from "./ChessBoard";
 
-function App() {
+function ChessGame({ initialFen }) {
   const [fen, setFen] = useState("start");
+
+  useEffect(() => {
+    if (initialFen) {
+      setFen(initialFen);
+    }
+  }, [initialFen]);
 
   const handleStartPuzzle = () => {
     const fenInput = prompt("Enter FEN:");
@@ -30,4 +36,4 @@ function App() {
   );
 }
 
-export default App;
+export default ChessGame;
