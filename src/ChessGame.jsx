@@ -37,24 +37,13 @@ function ChessGame() {
 
   const handleNext = () => {
     if (currentPuzzle) {
-      const nextId = currentPuzzle.id + 1;
+      const nextId = parseInt(currentPuzzle.id) + 1;
       navigate(`/game/${nextId}`);
     }
   };
 
-  const handleStartPuzzle = () => {
-    const fenInput = prompt("Enter FEN:");
-    if (fenInput) setFen(fenInput);
-  };
-
-  const handlePlay = () => {
-    const fenInput = prompt("Enter FEN for play:");
-    if (fenInput) setFen(fenInput);
-  };
-
-  // ✔ FIXED BACK BUTTON (never duplicates /temp_chess)
   const handleBack = () => {
-    navigate("..", { replace: true });   // Moves one level up correctly
+    navigate("..", { replace: true });
   };
 
   return (
@@ -86,6 +75,25 @@ function ChessGame() {
         }}
       >
         Back
+      </button>
+
+      {/* 🟢 NEXT BUTTON */}
+      <button
+        onClick={handleNext}
+        style={{
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          padding: '10px 20px',
+          backgroundColor: 'green',
+          color: 'white',
+          border: 'none',
+          borderRadius: 5,
+          cursor: 'pointer',
+          zIndex: 1000
+        }}
+      >
+        Next
       </button>
 
       <ChessBoard initialFen={fen} />
