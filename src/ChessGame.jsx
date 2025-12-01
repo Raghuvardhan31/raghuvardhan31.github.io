@@ -12,7 +12,7 @@ function ChessGame() {
   const navigate = useNavigate();
 
   // Determine puzzle type from URL path
-  const puzzleType = location.pathname.startsWith("/checkmate") ? "checkmate" : "enprice";
+  const puzzleType = location.pathname.split('/')[1];
 
   useEffect(() => {
     if (urlId) {
