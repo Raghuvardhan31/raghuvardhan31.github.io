@@ -137,6 +137,7 @@ function Puzzles() {
             <p><b>FEN:</b> {puzzle.fen}</p>
             <p><b>Difficulty:</b> {puzzle.difficulty_level}</p>
             <p><b>Solution:</b> {puzzle.solution_moves}</p>
+            <p><b>Moves:</b> {puzzle.p_moves}</p>
 
             <button
               onClick={() => navigate(`/${selected}/${puzzle.id}`)}
