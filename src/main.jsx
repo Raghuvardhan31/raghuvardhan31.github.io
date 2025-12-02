@@ -6,7 +6,7 @@ import App from './App'
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/temp_chess/">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>
