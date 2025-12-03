@@ -1,6 +1,6 @@
 {
   "homepage": "https://chesswave.online",
-  "name": "my-chess-app",
+  "name": "chesswave",
   "private": true,
   "version": "0.0.0",
   "type": "module",
